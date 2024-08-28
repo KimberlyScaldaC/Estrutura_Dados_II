@@ -1,4 +1,4 @@
-//Kimberly Scaldaferro Colodeti
+// Kimberly Scaldaferro Colodeti
 #include <stdio.h>
 #include <stdlib.h>
 // quando coloca o typedef nao precisa coloca o struct no resto
@@ -56,6 +56,7 @@ NoArvore *adicionaElemento(NoArvore *raiz, int dado) {
   return raiz;
 }
 
+// Achar o no folha
 NoArvore *encontrarMinimo(NoArvore *raiz) {
   NoArvore *atual = raiz;
   while (atual->esq != NULL) {
@@ -64,6 +65,7 @@ NoArvore *encontrarMinimo(NoArvore *raiz) {
   return atual;
 }
 
+// excluir um no
 NoArvore *excluirElemento(NoArvore *raiz, int valor) {
   if (raiz == NULL) {
     return raiz;
@@ -93,6 +95,36 @@ NoArvore *excluirElemento(NoArvore *raiz, int valor) {
   return raiz;
 }
 
+void posOrdem(NoArvore *raiz) {
+  // ESQ,DIR,RAIZ
+  if (raiz != NULL) {
+    posOrdem(raiz->esq);
+    posOrdem(raiz->dir);
+    printf(" %d |", raiz->dado);
+  }
+  return;
+}
+
+void preOrdem(NoArvore *raiz) {
+  // RAIZ,ESQ,DIR
+  if (raiz != NULL) {
+    printf(" %d |", raiz->dado);
+    posOrdem(raiz->esq);
+    posOrdem(raiz->dir);
+  }
+  return;
+}
+
+void inOrdem(NoArvore *raiz) {
+  // ESQ,RAIZ,DIR
+  if (raiz != NULL) {
+    posOrdem(raiz->esq);
+    printf(" %d |", raiz->dado);
+    posOrdem(raiz->dir);
+  }
+  return;
+}
+
 int main(void) {
   int op = -1, valor;
   struct NoArvore *raiz = NULL;
@@ -101,7 +133,9 @@ int main(void) {
     printf("- 1 --- Adiciona Elemento(no)\n");
     printf("- 2 --- Excluir Elemento(no)\n");
     printf("- 3 --- Imprimir Arvore\n");
-    printf("- 4 --- \n");
+    printf("- 4 --- Imprimir Pos-Ordem\n");
+    printf("- 5 --- Imprimir In-Ordem\n");
+    printf("- 6 --- Imprimir Pre-Ordem\n");
     printf("- 0 --- Sair\n\n");
     printf("- Opção --> ");
     scanf("%d", &op);
@@ -129,7 +163,18 @@ int main(void) {
       break;
 
     case 4:
-      printf("\n\n--- \n");
+      printf("\n\n--- Imprimir Pos-Ordem\n\n");
+      posOrdem(raiz);
+      break;
+
+    case 5:
+      printf("\n\n--- Imprimir In-Ordem\n\n");
+      inOrdem(raiz);
+      break;
+
+    case 6:
+      printf("\n\n--- Imprimir Pre-Ordem\n\n");
+      preOrdem(raiz);
       break;
 
     case 0:

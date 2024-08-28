@@ -1,3 +1,4 @@
+//Kimberly Scaldaferro Colodeti
 #include <stdio.h>
 #include <stdlib.h>
 // quando coloca o typedef nao precisa coloca o struct no resto
@@ -9,7 +10,7 @@ typedef struct {
 
 // Função auxiliar para imprimir um caractere precedido por uma quantidade
 // específica de espaços
-void imprimeNo(int valor, int dado) {
+void imprimiNo(int valor, int dado) {
   int i;
   for (i = 0; i < dado; i++)
     printf("   ");
@@ -22,7 +23,7 @@ void mostraArvore(NoArvore *raiz, int dado) {
   }
   mostraArvore(raiz->dir, dado + 1);
   // Convertendo para caractere para imprimir
-  imprimeNo(raiz->dado, dado);
+  imprimiNo(raiz->dado, dado);
   mostraArvore(raiz->esq, dado + 1);
 }
 

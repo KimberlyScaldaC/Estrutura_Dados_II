@@ -8,25 +8,6 @@ typedef struct {
   struct NoArvore *dir;
 } NoArvore;
 
-// Função auxiliar para imprimir um caractere precedido por uma quantidade
-// específica de espaços
-void imprimiNo(int valor, int dado) {
-  int i;
-  for (i = 0; i < dado; i++)
-    printf("   ");
-  printf("%i\n", valor);
-}
-
-void mostraArvore(NoArvore *raiz, int dado) {
-  if (raiz == NULL) {
-    return;
-  }
-  mostraArvore(raiz->dir, dado + 1);
-  // Convertendo para caractere para imprimir
-  imprimiNo(raiz->dado, dado);
-  mostraArvore(raiz->esq, dado + 1);
-}
-
 NoArvore *criarNo(int dado) {
   // alocar memoria
   NoArvore *novoNo = (NoArvore *)malloc(sizeof(NoArvore));
@@ -125,6 +106,26 @@ void inOrdem(NoArvore *raiz) {
   return;
 }
 
+// Função auxiliar para imprimir um caractere precedido por uma quantidade
+// específica de espaços
+void imprimeNo(int dado, int valor) {
+  int i;
+  for (i = 0; i < valor; i++)
+    printf("   ");
+  printf("%i\n", dado);
+}
+
+// Função para exibir a árvore no formato esquerda-raiz-direita segundo
+// Sedgewick
+void mostraArvore(NoArvore *raiz, int valor) {
+  if (raiz == NULL) {
+    return;
+  }
+  mostraArvore(raiz->dir, valor + 1);
+  imprimeNo(raiz->dado, valor); // Convertendo para caractere para imprimir
+  mostraArvore(raiz->esq, valor + 1);
+}
+
 int main(void) {
   int op = -1, valor;
   struct NoArvore *raiz = NULL;
@@ -136,6 +137,7 @@ int main(void) {
     printf("- 4 --- Imprimir Pos-Ordem\n");
     printf("- 5 --- Imprimir In-Ordem\n");
     printf("- 6 --- Imprimir Pre-Ordem\n");
+    printf("- 7 --- \n");
     printf("- 0 --- Sair\n\n");
     printf("- Opção --> ");
     scanf("%d", &op);
@@ -143,9 +145,22 @@ int main(void) {
     switch (op) {
     case 1:
       printf("\n\n--- Adiciona Elemento(no)\n");
-      printf("\nDigite o valor do no ->");
-      scanf("%d", &valor);
-      adicionaElemento(raiz, valor);
+      // printf("\nDigite o valor do no ->");
+      // scanf("%d", &valor);
+      // adicionaElemento(raiz, valor);
+      // Inserindo elementos na árvore
+      raiz = adicionaElemento(raiz, 1);
+      raiz = adicionaElemento(raiz, 2);
+      raiz = adicionaElemento(raiz, 3);
+      raiz = adicionaElemento(raiz, 4);
+      raiz = adicionaElemento(raiz, 5);
+      raiz = adicionaElemento(raiz, 6);
+      raiz = adicionaElemento(raiz, 7);
+      raiz = adicionaElemento(raiz, 8);
+      raiz = adicionaElemento(raiz, 9);
+      raiz = adicionaElemento(raiz, 10);
+
+      mostraArvore(raiz, 3);
       break;
 
     case 2:
@@ -175,6 +190,11 @@ int main(void) {
     case 6:
       printf("\n\n--- Imprimir Pre-Ordem\n\n");
       preOrdem(raiz);
+      break;
+
+    case 7:
+      printf("\n\n--- \n\n");
+
       break;
 
     case 0:
